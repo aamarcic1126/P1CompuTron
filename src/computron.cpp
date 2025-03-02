@@ -22,7 +22,7 @@ Command opCodeToCommand(size_t opCode) {
 	case 42: return Command::branchZero;
 	case 43: return Command::halt;
 	default:
-		throw std::runtime_error("Invalid opcode");
+		throw std::runtime_error("Invalid weifubwegiuwebg");
 	}
 }
 
