@@ -48,17 +48,33 @@ void load_from_file(std::array<int, memorySize>& memory, const std::string& file
 
 		if (instruction == sentinel) break;
 
-		// Fix short opcode inputs
-		if (instruction >= 10 && instruction <= 43) {
-			switch (instruction) {
-			case 10: case 11: case 20: case 21:
-			case 30: case 31: case 32: case 33:
-			case 40: case 41: case 42: case 43:
-				instruction *= 100;
-				break;
-			default:
-				throw std::runtime_error("invalid_input");
+		int absVal = (instruction >= 0) ? instruction : -instruction;
+
+		// Count number of digits
+		int digits = 0;
+		if (absVal == 0) {
+			digits = 1;
+		}
+		else {
+			int temp = absVal;
+			while (temp > 0) {
+				temp /= 10;
+				digits++;
 			}
+		}
+
+		// Now pad if it's 1–3 digits (and within valid opcode range)
+		if (digits == 2) {
+			instruction *= 100;
+		}
+		else if (digits == 3) {
+			instruction *= 10;
+		}
+		else if (digits == 1) {
+			throw std::runtime_error("invalid_input");
+		}
+		else if (digits > 4) {
+			throw std::runtime_error("invalid_input");
 		}
 
 		// Check if the instruction is valid using the validWord function
