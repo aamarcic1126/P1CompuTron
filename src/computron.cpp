@@ -8,21 +8,26 @@
 
 Command opCodeToCommand(size_t opCode) {
 	switch (opCode) {
+
 	case 10: return Command::read;
-		// ToDo: Complete
 	case 11: return Command::write;
+
 	case 20: return Command::load;
 	case 21: return Command::store;
+
 	case 30: return Command::add;
 	case 31: return Command::subtract;
 	case 32: return Command::divide;
 	case 33: return Command::multiply;
+
 	case 40: return Command::branch;
 	case 41: return Command::branchNeg;
 	case 42: return Command::branchZero;
+
 	case 43: return Command::halt;
+
 	default:
-		break;
+		throw std::runtime_error("Invalid opcode");
 	}
 }
 
@@ -40,7 +45,21 @@ void load_from_file(std::array<int, memorySize>& memory, const std::string& file
 
 	while (std::getline(inputFile, line)) {
 		instruction = std::stoi(line);
+
 		if (instruction == sentinel) break;
+
+		// Fix short opcode inputs
+		if (instruction >= 10 && instruction <= 43) {
+			switch (instruction) {
+			case 10: case 11: case 20: case 21:
+			case 30: case 31: case 32: case 33:
+			case 40: case 41: case 42: case 43:
+				instruction *= 100;
+				break;
+			default:
+				throw std::runtime_error("invalid_input");
+			}
+		}
 
 		// Check if the instruction is valid using the validWord function
 		// If the instruction is valid, store it in memory at position 'i' and increment 'i'
@@ -171,7 +190,7 @@ void execute(std::array<int, memorySize>& memory, int* const acPtr,
 
 		default:
 			// any instruction required
-			break;
+			throw std::runtime_error("Unkown instruction");
 		}
 		// You may modify the below while condition if required
 	} while (opCodeToCommand(*opCodePtr) != Command::halt);
