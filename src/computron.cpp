@@ -48,7 +48,7 @@ void load_from_file(std::array<int, memorySize>& memory, const std::string& file
 
 		if (instruction == sentinel) break;
 
-		int absVal = (instruction >= 0) ? instruction : -instruction;
+		/*int absVal = (instruction >= 0) ? instruction : -instruction;
 
 		// Count number of digits
 		int digits = 0;
@@ -76,7 +76,7 @@ void load_from_file(std::array<int, memorySize>& memory, const std::string& file
 		else if (digits > 4) {
 			throw std::runtime_error("invalid_input");
 		}
-
+		*/
 		// Check if the instruction is valid using the validWord function
 		// If the instruction is valid, store it in memory at position 'i' and increment 'i'
 		// If the instruction is invalid, throw a runtime error with message "invalid_input"
