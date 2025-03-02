@@ -171,7 +171,6 @@ void execute(std::array<int, memorySize>& memory, int* const acPtr,
 
 		default:
 			// any instruction required
-			throw std::runtime_error("Unknown instruction");
 			break;
 		}
 		// You may modify the below while condition if required
