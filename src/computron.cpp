@@ -27,7 +27,7 @@ Command opCodeToCommand(size_t opCode) {
 	case 43: return Command::halt;
 
 	default:
-		throw std::runtime_error("Invalid opcode");
+		return Command::halt;
 	}
 }
 
@@ -205,8 +205,7 @@ void execute(std::array<int, memorySize>& memory, int* const acPtr,
 			break;
 
 		default:
-			// any instruction required
-			throw std::runtime_error("Unkown instruction");
+			Command::halt;
 		}
 		// You may modify the below while condition if required
 	} while (opCodeToCommand(*opCodePtr) != Command::halt);
