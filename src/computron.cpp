@@ -205,7 +205,7 @@ void execute(std::array<int, memorySize>& memory, int* const acPtr,
 			break;
 
 		default:
-			Command::halt;
+			break;
 		}
 		// You may modify the below while condition if required
 	} while (opCodeToCommand(*opCodePtr) != Command::halt);
